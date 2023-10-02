@@ -11,7 +11,10 @@ async function bootstrap() {
     session({
       secret: 'keyboard',
       resave: false,
-      saveUninitialized: false
+      saveUninitialized: false,
+      cookie: {
+        maxAge: 86400000 // Set the session expiration time in milliseconds (1 hour in this example)
+      }
     })
   );
   app.use(passport.initialize());
