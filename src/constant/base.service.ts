@@ -1,23 +1,16 @@
-import { IBaseService } from 'src/interfaces/i.base.service';
-import { LoggerService } from 'src/logger/logger.service';
 import { BaseEntity, DeleteResult, Repository } from 'typeorm';
-import { EntityId } from 'typeorm/repository/EntityId';
 
-export class BaseService<T extends BaseEntity, R extends Repository<T>>
-  implements IBaseService<T>
-{
+export class BaseService<T extends BaseEntity, R extends Repository<T>> {
   protected readonly repository: R;
-  protected readonly logger: LoggerService;
 
-  constructor(repository: R, logger: LoggerService) {
+  constructor(repository: R) {
     this.repository = repository;
-    this.logger = logger;
   }
   getAll(): Promise<[T[], number]> {
     return this.repository.findAndCount();
   }
 
-  findById(id: EntityId): Promise<T> {
+  findById(id: string): Promise<T> {
     return this.repository.findOneById(id).then((result) => {
       if (!result) {
         throw new Error(`Record with ID ${id} not found`);
@@ -25,7 +18,7 @@ export class BaseService<T extends BaseEntity, R extends Repository<T>>
     });
   }
 
-  findByIds(ids: [EntityId]): Promise<T[]> {
+  findByIds(ids: string[]): Promise<T[]> {
     return this.repository.findByIds(ids);
   }
 
@@ -33,12 +26,12 @@ export class BaseService<T extends BaseEntity, R extends Repository<T>>
     return this.repository.save(data);
   }
 
-  async update(id: EntityId, data: any): Promise<T> {
+  async update(id: string, data: any): Promise<T> {
     await this.repository.update(id, data);
     return this.findById(id);
   }
 
-  delete(id: EntityId): Promise<DeleteResult> {
+  delete(id: string): Promise<DeleteResult> {
     return this.repository.delete(id);
   }
 }
