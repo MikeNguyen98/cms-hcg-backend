@@ -1,12 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import * as session from 'express-session';
-import * as passport from 'passport';
+const session = require('express-session');
+const passport = require('passport');
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { abortOnError: false });
-  // app.setGlobalPrefix('api');
+  app.setGlobalPrefix('api');
   app.use(
     session({
       secret: 'keyboard',
@@ -21,7 +21,7 @@ async function bootstrap() {
   app.use(passport.session());
   app.enableCors({
     origin: process.env.PUBLIC_ORIGIN,
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     preflightContinue: false,
     optionsSuccessStatus: 204,
     credentials: true
