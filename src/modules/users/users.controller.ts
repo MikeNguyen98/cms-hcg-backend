@@ -7,9 +7,9 @@ import {
   UseGuards
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { LocalAuthGuard } from 'src/guards/local.auth.guard';
 import { UsersService } from './users.service';
 import { AuthenticatedGuard } from 'src/modules/auth/authenticated.guard';
+import { LocalAuthGuard } from '../auth/local.auth.guard';
 
 @Controller('auth')
 export class UsersController {
