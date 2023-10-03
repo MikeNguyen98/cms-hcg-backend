@@ -11,14 +11,21 @@ async function bootstrap() {
     session({
       secret: 'keyboard',
       resave: false,
-      saveUninitialized: false,
+      saveUninitialized: true,
       cookie: {
-        maxAge: 86400000 // Set the session expiration time in milliseconds (1 hour in this example)
+        maxAge: 180000 // Set the session expiration time in milliseconds (1 hour in this example)
       }
     })
   );
   app.use(passport.initialize());
   app.use(passport.session());
+  app.enableCors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    credentials: true
+  });
   const config = new DocumentBuilder()
     .setTitle('HCG')
     .setDescription('The HCG API description')

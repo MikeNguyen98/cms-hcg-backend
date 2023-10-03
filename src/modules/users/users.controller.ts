@@ -35,9 +35,9 @@ export class UsersController {
     } catch (error) {
       if (error.code === 11000) {
         return {
-          "statusCode": 422,
-          "message": "Tài khoản đã tồn tại"
-        }
+          statusCode: 422,
+          message: 'Tài khoản đã tồn tại'
+        };
       }
     }
   }
@@ -45,7 +45,7 @@ export class UsersController {
   @UseGuards(LocalAuthGuard)
   @Post('/login')
   login(@Request() req): any {
-    return { User: req.username, msg: 'User logged in' };
+    return { User: req.user, msg: 'User logged in', sessionID: req.sessionID };
   }
   // Get / protected
   @UseGuards(AuthenticatedGuard)
