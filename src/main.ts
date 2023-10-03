@@ -6,7 +6,7 @@ import * as passport from 'passport';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { abortOnError: false });
-  app.setGlobalPrefix('api');
+  // app.setGlobalPrefix('api');
   app.use(
     session({
       secret: 'keyboard',
