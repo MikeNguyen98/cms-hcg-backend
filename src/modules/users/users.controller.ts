@@ -9,7 +9,7 @@ import {
 import * as bcrypt from 'bcrypt';
 import { LocalAuthGuard } from 'src/guards/local.auth.guard';
 import { UsersService } from './users.service';
-import { AuthenticatedGuard } from 'src/guards/authenticated.guard';
+import { AuthenticatedGuard } from 'src/modules/auth/authenticated.guard';
 
 @Controller('auth')
 export class UsersController {
